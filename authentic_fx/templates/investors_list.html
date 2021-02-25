@@ -1,0 +1,121 @@
+{% load static %}
+{% load crispy_forms_tags %}
+
+<html lang="en">
+  <head>
+    {% include 'head.html' %}
+    <style>
+      body {
+        font-family: 'Akaya Telivigala', cursive;
+      }
+
+      th, td {
+        border: 3px solid #ddd;
+        padding: 2px;
+      }
+
+      .timer {
+        color: #dc3545;
+        border-radius: 5px;
+        padding: 5px;
+      }
+      /*#id_export_to_CSV,
+      .form-check-label{
+        display: none;
+      }*/
+
+    </style>
+
+
+    <!-- Custom styles for this template -->
+    <link href="{% static 'css/navbar-top-fixed.css' %}" rel="stylesheet">
+  </head>
+  <body>
+  {% include 'nav.html' %}
+<br>
+  {% if request.user.is_authenticated %}
+<main class="container">
+  <div class="bg-light p-5 rounded">
+      {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+               <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <h1 class="title" style="font-family: 'Akaya Telivigala', cursive;">{{title}}</h1>
+    <div class="flt-search">
+      <form method="post" action="">
+        {% csrf_token %}
+        {{form|crispy}}
+        <br>
+        <input class="btn btn-primary search-btn" type="submit" value="Search" />
+      </form>
+    </div>
+    <table>
+    <tr style="text-align: center;">
+        <th>S/n</th>
+        <th>INVESTOR NAME</th>
+        <!-- <th>ACCOUNT NO</th>
+        <th>BANK NAME</th> -->
+        <th>AMOUNT INVESTED</th>
+        <th>DATE OF INVESTMENT</th>
+        <th>DURATION</th>
+        <!-- <th>PHONE NUMBER</th>
+        <th>EMAIL ADDRESS</th> --> 
+        <th>RETURN OF INVESTMENT</th>
+        <th>DUE DATE</th>
+        <th>ADDED BY</th>
+        <th>DUE IN</th>
+        <th>EDIT</th>
+        <th>DELETE</th>
+    </tr>
+    {% for instance in queryset %}
+        <tr>
+          {% if instance.complete == True %}
+            <td>{{forloop.counter}}</td>
+            <td><del><a href="{% url 'investor_detail' id=instance.id %}" data-toggle="tooltip" title="See full details of this investor">{{instance.investor_name}}</a></del></td>
+            
+            <!-- <td><del>{{instance.account_no}}</del></td>
+            <td><del>{{instance.bank_name}}</del></td> -->
+            <td><del>{{instance.amount_invested}}</del></td>
+            <td><del>{{instance.date_of_investment}}</del></td>
+            <td><del>{{instance.duration}}</del></td>
+            <!-- <td><del>{{instance.phone_number}}</del></td>
+            <td><del>{{instance.email_address}}</del></td> -->
+            <td><del>{{instance.return_of_investment}}</del></td>
+            <td><del>{{instance.due_date}}</del></td>
+            <td><del>{{instance.users_name}}</del></td>
+            <td style="text-align: left"><del><b>Due on </b><span class="timer">{{instance.due_date}}</span></del></td>
+            <td><a href="{% url 'investor_edits' id=instance.id %}" data-toggle="tooltip" title="Edit this investor"><img src="{% static 'img/pencil-square.svg' %}"></a></td>
+            <td><a href="{% url 'investor_delete' id=instance.id %}" data-toggle="tooltip" title="Delete this investor"><img src="{% static 'img/trash.svg' %}"></a></td>
+            {% else %}
+            <td>{{forloop.counter}}</td>
+            <td><a href="{% url 'investor_detail' id=instance.id %}" data-toggle="tooltip" title="See full details of this investor">{{instance.investor_name}}</a></td>
+            
+            <!-- <td>{{instance.account_no}}</td>
+            <td>{{instance.bank_name}}</td> -->
+            <td>{{instance.amount_invested}}</td>
+            <td>{{instance.date_of_investment}}</td>
+            <td>{{instance.duration}}</td>
+            <!-- <td>{{instance.phone_number}}</td>
+            <td>{{instance.email_address}}</td> -->
+            <td>{{instance.return_of_investment}}</td>
+            <td>{{instance.due_date}}</td>
+            <td>{{instance.users_name}}</td>
+            <td style="text-align: left"><b>Due in </b><span class="timer">{{instance.due_date|timeuntil}}</span></td>
+            <td><a href="{% url 'investor_edits' id=instance.id %}" data-toggle="tooltip" title="Edit this investor"><img src="{% static 'img/pencil-square.svg' %}"></a></td>
+            <td><a href="{% url 'investor_delete' id=instance.id %}" data-toggle="tooltip" title="Delete this investor"><img src="{% static 'img/trash.svg' %}"></a></td>
+            {% endif %}
+        </tr>
+    {% endfor %}
+</table>
+  </div>
+</main>
+  {% else %}
+  <center><a href="/accounts/login">LOGIN HERE</a></center>
+  {% endif %}
+
+{% include 'js.html' %}
+  </body>
+</html>

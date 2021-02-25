@@ -1,0 +1,97 @@
+{% load static %}
+{% load crispy_forms_tags %}
+
+<html lang="en">
+  <head>
+    {% include 'head.html' %}
+    <style>
+      hr {
+         margin-left: auto;
+         margin-right: auto;
+      }
+      body{
+        font-family: 'Akaya Telivigala', cursive;
+      }
+    </style>
+
+
+    <!-- Custom styles for this template -->
+    <link href="{% static 'css/navbar-top-fixed.css' %}" rel="stylesheet">
+
+    <link href="{% static 'js/jquery-ui-1.12.1/jquery-ui.min.css' %}" rel="stylesheet">
+    <link href="{% static 'js/jquery-ui-1.12.1/jquery-ui.structure.min.css' %}" rel="stylesheet">
+    <link href="{% static 'js/jquery-ui-1.12.1/jquery-ui.theme.min.css' %}" rel="stylesheet">
+  </head>
+  <body>
+  {% include 'nav.html' %}
+<br>
+  {% if request.user.is_authenticated %}
+<main role="main" class="container">
+  <div class="bg-light p-5 rounded">
+      <div class="row z-depth-3">
+            <div class="col-sm-4 rounded-left" style="background: #fe5722">
+              <div class="card-block text-center text-white">
+                <img class="mt-2" style="width: 50%" src="{% static 'img/person-fill.svg' %}">
+                <h2 class="font-weight-bold mt-2">{{ instance.investor_name }}</h2>
+                <p>{{ instance.phone_number }}</p>
+                <p>{{ instance.email_address }}</p>
+                <a href="{% url 'investor_edits' id=instance.id %}"><i class="fas fa-user-tie fa-7x mt-5"><img style="width: 15%" src="{% static 'img/pencil-square.svg' %}"></i></a>
+              </div>
+            </div>
+            <div class="col-sm-8 bg-white rounded-right">
+              <h3 class="mt-3 text-center title" style="font-family: 'Akaya Telivigala', cursive;">{{ title }}</h3>
+              <hr class="badge-primary mt-0 w-50">
+              <!-- <div class="row">
+              </div> -->
+              <h4 class="mt-3">Investment Info</h4>
+              <hr class="bg-primary">
+              <div class="row">
+                <div class="col-sm-6">
+                  <p class="font-weight-bold"><b>Amount Invested: <span>&#8358; </span></b><i class="text-muted"></i>{{instance.amount_invested}}</p>
+                </div>
+                <div class="col-sm-6">
+                  <i class="bi bi-person-fill"></i>
+                  <p class="font-weight-bold"><b>Return of Investment (ROI): <span>&#8358;</span></b> <i class="text-muted"></i>{{instance.return_of_investment}}</p>
+                </div>
+                <div class="col-sm-6">
+                  <i class="bi bi-person-fill"></i>
+                  <p class="font-weight-bold"><b>Date of Investment: </b> <i class="text-muted"></i>{{instance.date_of_investment}}</p>
+                </div>
+                <div class="col-sm-6">
+                  <i class="bi bi-person-fill"></i>
+                  <p class="font-weight-bold"><b>Due Date: </b> <i class="text-muted"></i>{{instance.due_date}}</p>
+                </div>
+                <div class="col-sm-6">
+                  <i class="bi bi-person-fill"></i>
+                  <p class="font-weight-bold"><b>Account Number: </b> <i class="text-muted"></i>{{instance.account_no}}</p>
+                </div>
+                <div class="col-sm-6">
+                  <i class="bi bi-person-fill"></i>
+                  <p class="font-weight-bold"><b>Bank: </b> <i class="text-muted"></i>{{instance.bank_name}}</p>
+                </div>
+                <div class="col-sm-6">
+                  <i class="bi bi-person-fill"></i>
+                  <p class="font-weight-bold"><b>Duration: </b> <i class="text-muted"></i>{{instance.duration}}</p>
+                </div>
+                <div class="col-sm-6">
+                  <i class="bi bi-person-fill"></i>
+                  <p class="font-weight-bold"><b>Date Created: </b> <i class="text-muted"></i>{{instance.timestamp}}</p>
+                </div>
+              </div>
+              <hr class="bg-primary">
+              <ul class="list-unstyled d-flex justify-content-center mt-4">
+                <li style="color: #fe5722"><b>ADDED BY: {{instance.users_name}} on {{instance.timestamp}}</b></li>
+              </ul>
+            </div>
+          </div>
+      </div>
+  </div>
+</main>
+  {% else %}
+  <center><a href="/accounts/login">LOGIN HERE</a></center>
+  {% endif %}
+
+{% include 'js.html' %}
+
+  </body>
+</html>

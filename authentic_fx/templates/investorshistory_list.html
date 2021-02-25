@@ -1,0 +1,72 @@
+{% load static %}
+{% load crispy_forms_tags %}
+
+<html lang="en">
+  <head>
+    {% include 'head.html' %}
+  </head>
+  <body>
+  {% include 'nav.html' %}
+<br>
+  {% if request.user.is_authenticated %}
+<main class="container">
+  <div class="bg-light p-5 rounded">
+      {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+               <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <h1 class="title" style="font-family: 'Akaya Telivigala', cursive;">{{title}}</h1>
+    <div class="flt-search">
+      <form method="post" action="">
+        {% csrf_token %}
+        {{form|crispy}}
+      </form>
+    </div>
+    <table>
+    <tr style="text-align: center;">
+        <th>S/n</th>
+        <th>INVESTOR NAME</th>
+       <th>ACCOUNT NO</th>
+        <th>BANK NAME</th>
+        <th>AMOUNT INVESTED</th>
+        <th>DATE OF INVESTMENT</th>
+        <th>DURATION</th>
+        <th>PHONE NUMBER</th>
+        <th>EMAIL ADDRESS</th> 
+        <th>RETURN OF INVESTMENT</th>
+        <th>DUE DATE</th>
+        <th>EDITED BY</th>
+        <th>DATE CREATED</th>
+    </tr>
+    {% for instance in queryset %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{instance.investor_name}}</td>
+            
+            <td>{{instance.account_no}}</td>
+            <td>{{instance.bank_name}}</td>
+            <td>{{instance.amount_invested}}</td>
+            <td>{{instance.date_of_investment}}</td>
+            <td>{{instance.duration}}</td>
+            <td>{{instance.phone_number}}</td>
+            <td>{{instance.email_address}}</td>
+            <td>{{instance.return_of_investment}}</td>
+            <td>{{instance.due_date}}</td>
+            <td>{{instance.users_name}}</td>
+            <td>{{instance.timestamp}}</td>
+        </tr>
+    {% endfor %}
+</table>
+  </div>
+</main>
+  {% else %}
+  <center><a href="/accounts/login">LOGIN HERE</a></center>
+  {% endif %}
+
+{% include 'js.html' %}
+
+  </body>
+</html>

@@ -1,0 +1,33 @@
+{% load static %}
+
+<html lang="en">
+  <head>
+    {% include 'head.html' %}
+  </head>
+  <body>
+  {% include 'nav.html' %}
+<br>
+<main class="container">
+  {% include 'home.html' %}
+
+  </div>
+
+  {% if request.user.is_authenticated %}
+
+  {% else %}
+  <div style="margin-top: 100px" class="bg-light p-5 rounded">
+    <div class="container">
+      <div class="col-sm-6">
+          <div class="login1">
+            {% block content %}
+            {% endblock %}
+          </div>
+        </div>
+    </div> 
+  </div>   
+  {% endif %}    
+</main>
+
+{% include 'js.html' %}
+  </body>
+</html>

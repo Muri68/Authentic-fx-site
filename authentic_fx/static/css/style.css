@@ -1,0 +1,84 @@
+body {
+    background-image: url(../img/bg.jpg);
+}
+
+.flt-search {
+    margin-bottom: 50px;
+    justify-content: center;
+}
+
+.flt-search #div_id_investor_name,
+.flt-search #div_id_account_no,
+.fit-search #div_id_due_date{
+    float: left;
+    width: 200px;
+    margin-right: 40px;
+}
+label{
+    margin-bottom: 10px;
+}
+
+/*Align the title to the center of the page*/
+.title{
+    font-family: helvetica;
+    font-weight: bold;
+    font-size: 25px;
+    color: #fe5722;
+    text-align: left;
+}
+
+
+/*Color, align and shadow the table*/
+table{
+  width: 100%;
+  text-align: center;
+  font-size: 15px;
+}
+
+/*Make alternating colors for the table rows*/
+table tr:nth-child(odd){
+  background: #B8CAE4
+}
+
+table tr:nth-child(even){
+  background: #dae5f4
+}
+
+.success{
+  list-style: none;
+  background-color: #fe5722;
+  color: white;
+  box-shadow: 12px 12px 12px #e61c66;
+  text-align: center;
+  border-radius: 50px;
+}
+
+#settings{
+  background-color: #fe5722;
+  color: white;
+  text-align: center;
+  display: inline;
+  font-weight: bolder;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 20px;
+  padding-right: 5px;
+  position: fixed;
+  bottom: 0px;
+  left: -80px;
+  z-index: 3000;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+
+
+#settings:hover{
+  left: 0px;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  -ms-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+
